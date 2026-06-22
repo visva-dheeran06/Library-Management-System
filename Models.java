@@ -21,4 +21,3 @@ class Book {
     }
 }
 
-// Member class coming in next commit// Will contain Book and Member classes
