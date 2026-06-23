@@ -10,3 +10,10 @@ public class Reports {
         return sorted.subList(0, Math.min(topN, sorted.size()));
     }
 }
+public static void logAction(MyStack<String> historyStack, String bookId, String action) {
+    historyStack.push(bookId + " - " + action + " - " + java.time.LocalDate.now());
+}
+
+public static List<String> getHistory(MyStack<String> historyStack) {
+    return historyStack.toList();
+}
