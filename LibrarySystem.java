@@ -32,3 +32,17 @@ public List<Book> searchCatalog(String keyword) {
     }
     return results;
 }
+public String issueBook(String bookId, String memberId) {
+     Book book = books.get(bookId);
+     Member member = members.get(memberId);
+     if (book == null || member == null) return "Invalid book or member ID.";
+     if (book.isAvailable()) {
+         book.availableCopies--;
+         book.timesBorrowed++;
+         member.borrowedBooks.put(bookId, java.time.LocalDate.now());
+         return "OK: '" + book.title + "' issued to " + member.name + ".";
+     } else {
+         return "WAIT: No copies available right now.";
+     }
+ }
+// Return logic and fine calculation coming next
