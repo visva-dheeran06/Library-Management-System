@@ -19,6 +19,10 @@ class Book {
     public boolean isAvailable() {
         return availableCopies > 0;
     }
+     @Override    public String toString()
+    {       
+        return bookId + " | " + title + " | " + author + " | " + genre + " | "                + availableCopies + "/" + totalCopies + " available"; 
+    }
 }
 class Member {
     static final java.util.Map<String, Integer> MEMBERSHIP_PRIORITY = new java.util.HashMap<>();
@@ -42,5 +46,10 @@ class Member {
 
     public int getPriority() {
         return MEMBERSHIP_PRIORITY.getOrDefault(membershipType, 2);
+    }
+     @Override
+    public String toString() 
+    {   
+        return memberId + " | " + name + " | " + membershipType + " | Fine: Rs." + fineBalance;
     }
 }
