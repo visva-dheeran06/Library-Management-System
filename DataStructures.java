@@ -116,3 +116,29 @@ class MyPriorityQueue<T> {
         return result;
     }
 }
+public class DataStructuresTest {
+    public static void main(String[] args) {
+        System.out.println("Testing MyQueue:");
+        MyQueue<String> queue = new MyQueue<>();
+        queue.enqueue("Alice");
+        queue.enqueue("Bob");
+        System.out.println(queue.dequeue()); // Alice
+        System.out.println(queue.dequeue()); // Bob
+
+        System.out.println("Testing MyStack:");
+        MyStack<String> stack = new MyStack<>();
+        stack.push("Issued B1");
+        stack.push("Returned B1");
+        System.out.println(stack.pop()); // Returned B1
+        System.out.println(stack.pop()); // Issued B1
+
+        System.out.println("Testing MyPriorityQueue:");
+        MyPriorityQueue<String> pq = new MyPriorityQueue<>();
+        pq.enqueue("Student-Ravi", 2);
+        pq.enqueue("Premium-Asha", 0);
+        pq.enqueue("Faculty-Rao", 1);
+        System.out.println(pq.dequeue()); // Premium-Asha (priority 0 goes first)
+        System.out.println(pq.dequeue()); // Faculty-Rao
+        System.out.println(pq.dequeue()); // Student-Ravi
+    }
+}
