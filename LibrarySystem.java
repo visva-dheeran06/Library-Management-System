@@ -45,4 +45,15 @@ public String issueBook(String bookId, String memberId) {
          return "WAIT: No copies available right now.";
      }
  }
-// Return logic and fine calculation coming next
+public String returnBook(String bookId, String memberId) {
+    Book book = books.get(bookId);
+    Member member = members.get(memberId);
+    if (book == null || member == null || !member.borrowedBooks.containsKey(bookId)) {
+        return "ERR: This member did not borrow this book.";
+    }
+    member.borrowedBooks.remove(bookId);
+    book.availableCopies++;
+    return "OK: '" + book.title + "' returned by " + member.name + ".";
+}
+
+// Fine calculation coming next
