@@ -11,7 +11,15 @@ public class LibraryApp extends JFrame {
 
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Catalog", new JPanel());
-        tabs.addTab("Members", new JPanel());
+        private JPanel buildMembersTab() {
+               JPanel panel = new JPanel(new java.awt.BorderLayout());        
+               String[] columns = {"ID", "Name", "Type", "Fine Balance"};        
+               javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(columns, 0);        
+               JTable table = new JTable(model);        panel.add(new JScrollPane(table), java.awt.BorderLayout.CENTER);        
+               return panel;    
+        }
+       
+        tabs.addTab("Members", buildMembersTab());
         tabs.addTab("Issue / Return", new JPanel());
         tabs.addTab("Waiting List", new JPanel());
         tabs.addTab("Leaderboard", new JPanel());
