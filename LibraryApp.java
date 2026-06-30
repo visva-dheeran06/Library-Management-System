@@ -15,7 +15,8 @@ public class LibraryApp extends JFrame {
                JPanel panel = new JPanel(new java.awt.BorderLayout());        
                String[] columns = {"ID", "Name", "Type", "Fine Balance"};        
                javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(columns, 0);        
-               JTable table = new JTable(model);        panel.add(new JScrollPane(table), java.awt.BorderLayout.CENTER);        
+               JTable table = new JTable(model);        
+               panel.add(new JScrollPane(table), java.awt.BorderLayout.CENTER);        
                return panel;    
         }
        
