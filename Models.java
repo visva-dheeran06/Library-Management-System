@@ -7,13 +7,18 @@ class Book {
     int availableCopies;
     int timesBorrowed = 0;
 
-    public Book(String bookId, String title, String author, String genre, int totalCopies) {
+    public Book(String bookId, String title, String author, String genre, int totalCopies)
+    {
+        if (title == null || title.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("Book title cannot be empty.");
+        }        
         this.bookId = bookId;
-        this.title = title;
+        this.title = title; 
         this.author = author;
-        this.genre = genre;
-        this.totalCopies = totalCopies;
-        this.availableCopies = totalCopies;
+        this.genre = genre; 
+        this.totalCopies = totalCopies;  
+        this.availableCopies = totalCopies; 
     }
 
     public boolean isAvailable() {
