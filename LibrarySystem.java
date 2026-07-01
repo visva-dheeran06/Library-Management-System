@@ -45,15 +45,28 @@ public String issueBook(String bookId, String memberId) {
          return "WAIT: No copies available right now.";
      }
  }
+static final int LOAN_PERIOD_DAYS = 14;
+static final double FINE_PER_DAY = 5.0;
 public String returnBook(String bookId, String memberId) {
     Book book = books.get(bookId);
     Member member = members.get(memberId);
     if (book == null || member == null || !member.borrowedBooks.containsKey(bookId)) {
         return "ERR: This member did not borrow this book.";
     }
-    member.borrowedBooks.remove(bookId);
+    java.time.LocalDate issueDate = member.borrowedBooks.remove(bookId);
+    long daysKept = java.time.temporal.ChronoUnit.DAYS.between(issueDate, java.time.LocalDate.now());
+    double fine = 0.0;
+    if (daysKept > LOAN_PERIOD_DAYS) {
+        long overdueDays = daysKept - LOAN_PERIOD_DAYS;
+        fine = overdueDays * FINE_PER_DAY;
+        member.fineBalance += fine;
+    }
     book.availableCopies++;
-    return "OK: '" + book.title + "' returned by " + member.name + ".";
+    String msg = "OK: '" + book.title + "' returned by " + member.name + ".";
+    if (fine > 0) {
+        msg += " Overdue! Fine: Rs." + fine;
+    }
+    return msg;
 }
 
 // Fine calculation coming next
