@@ -21,7 +21,20 @@ public class LibraryApp extends JFrame {
         }
        
         tabs.addTab("Members", buildMembersTab());
-        tabs.addTab("Issue / Return", new JPanel());
+        tabs.addTab("Issue / Return", buildTransactionsTab());
+        private JPanel buildTransactionsTab() {
+               JPanel panel = new JPanel(new java.awt.BorderLayout());
+               JPanel form = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));        
+               form.add(new JLabel("Book ID"));        
+               form.add(new JTextField(8));        
+               form.add(new JLabel("Member ID"));        
+               form.add(new JTextField(8));        
+               form.add(new JButton("Issue Book"));        
+               form.add(new JButton("Return Book"));        
+               panel.add(form, java.awt.BorderLayout.NORTH);        
+               return panel;    
+        }
+             
         tabs.addTab("Waiting List", new JPanel());
         tabs.addTab("Leaderboard", new JPanel());
 
