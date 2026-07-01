@@ -23,6 +23,10 @@ class Book {
     {       
         return bookId + " | " + title + " | " + author + " | " + genre + " | "                + availableCopies + "/" + totalCopies + " available"; 
     }
+    public double getUtilizationRate()
+    {
+        return ((double) (totalCopies - availableCopies) / totalCopies) * 100; 
+    }
 }
 class Member {
     static final java.util.Map<String, Integer> MEMBERSHIP_PRIORITY = new java.util.HashMap<>();
@@ -51,5 +55,9 @@ class Member {
     public String toString() 
     {   
         return memberId + " | " + name + " | " + membershipType + " | Fine: Rs." + fineBalance;
+    }
+    public int getBorrowedCount()
+    {
+        return borrowedBooks.size(); 
     }
 }
