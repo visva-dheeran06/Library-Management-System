@@ -7,24 +7,19 @@ class MyQueue<T> {
     public void enqueue(T item) {
         items.add(item);
     }
-
     public T dequeue() {
         if (isEmpty()) return null;
         return items.remove(0);
     }
-
     public boolean isEmpty() {
         return items.isEmpty();
     }
-
     public int size() {
         return items.size();
     }
-
     public void clear() {
         items.clear();
     }
-
     public List<T> toList() {
         return new ArrayList<>(items);
     }
@@ -36,24 +31,19 @@ class MyStack<T> {
     public void push(T item) {
         items.add(item);
     }
-
     public T pop() {
         if (isEmpty()) return null;
         return items.remove(items.size() - 1);
     }
-
     public boolean isEmpty() {
         return items.isEmpty();
     }
-
     public int size() {
         return items.size();
     }
-
     public void clear() {
         items.clear();
     }
-
     public List<T> toList() {
         List<T> reversed = new ArrayList<>(items);
         java.util.Collections.reverse(reversed);
@@ -91,20 +81,22 @@ class MyPriorityQueue<T> {
         }
         items.add(index, entry);
     }
-
     public T dequeue() {
         if (isEmpty()) return null;
         return items.remove(0).data;
     }
-
     public boolean isEmpty() {
         return items.isEmpty();
     }
-
     public int size() {
         return items.size();
     }
-
+    public boolean contains(T data) {
+        for (Entry<T> e : items) {
+            if (e.data.equals(data)) return true;
+        }
+        return false;
+    }
     public List<T> toList() {
         List<T> result = new ArrayList<>();
         for (Entry<T> e : items) result.add(e.data);
