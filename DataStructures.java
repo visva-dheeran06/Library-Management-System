@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Custom Queue (FIFO) - implemented with an ArrayList for transparency in viva.
- */
 class MyQueue<T> {
     private final List<T> items = new ArrayList<>();
 
@@ -24,14 +21,15 @@ class MyQueue<T> {
         return items.size();
     }
 
+    public void clear() {
+        items.clear();
+    }
+
     public List<T> toList() {
         return new ArrayList<>(items);
     }
 }
 
-/**
- * Custom Stack (LIFO) - implemented with an ArrayList.
- */
 class MyStack<T> {
     private final List<T> items = new ArrayList<>();
 
@@ -52,7 +50,10 @@ class MyStack<T> {
         return items.size();
     }
 
-    /** Returns items most-recent-first for display. */
+    public void clear() {
+        items.clear();
+    }
+
     public List<T> toList() {
         List<T> reversed = new ArrayList<>(items);
         java.util.Collections.reverse(reversed);
@@ -60,13 +61,7 @@ class MyStack<T> {
     }
 }
 
-/**
- * Custom Priority Queue - implemented with a sorted ArrayList (not java.util.PriorityQueue),
- * so the insertion/removal logic is fully visible and easy to explain in a viva.
- * Lower priority NUMBER = served first (e.g. Premium=0, Faculty=1, Student=2).
- */
 class MyPriorityQueue<T> {
-
     private static class Entry<T> {
         int priority;
         int insertionOrder;
@@ -116,6 +111,7 @@ class MyPriorityQueue<T> {
         return result;
     }
 }
+
 public class DataStructuresTest {
     public static void main(String[] args) {
         System.out.println("Testing MyQueue:");
