@@ -21,7 +21,6 @@ public class LibraryApp extends JFrame {
         }
        
         tabs.addTab("Members", buildMembersTab());
-        tabs.addTab("Issue / Return", buildTransactionsTab());
         private JPanel buildTransactionsTab() {
                JPanel panel = new JPanel(new java.awt.BorderLayout());
                JPanel form = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));        
@@ -34,7 +33,8 @@ public class LibraryApp extends JFrame {
                panel.add(form, java.awt.BorderLayout.NORTH);        
                return panel;    
         }
-             
+
+        tabs.addTab("Issue / Return", buildTransactionsTab());
         tabs.addTab("Waiting List", new JPanel());
         tabs.addTab("Leaderboard", new JPanel());
 
