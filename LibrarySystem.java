@@ -4,6 +4,11 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
+Map<String, Member> members = new HashMap<>();
+Map<String, MyPriorityQueue<String>> waitingQueues = new HashMap<>();
+static final int LOAN_PERIOD_DAYS = 14;
+static final double FINE_PER_DAY = 5.0;
+
 public class LibrarySystem {
     Map<String, Book> books = new HashMap<>();
 
@@ -14,7 +19,6 @@ public class LibrarySystem {
     }
 }
 
-Map<String, Member> members = new HashMap<>();
 public String addMember(String memberId, String name, String membershipType) {
     if (members.containsKey(memberId)) return "Member ID already exists.";
     members.put(memberId, new Member(memberId, name, membershipType));
@@ -32,21 +36,29 @@ public List<Book> searchCatalog(String keyword) {
     }
     return results;
 }
+
 public String issueBook(String bookId, String memberId) {
-     Book book = books.get(bookId);
-     Member member = members.get(memberId);
-     if (book == null || member == null) return "Invalid book or member ID.";
-     if (book.isAvailable()) {
-         book.availableCopies--;
-         book.timesBorrowed++;
-         member.borrowedBooks.put(bookId, java.time.LocalDate.now());
-         return "OK: '" + book.title + "' issued to " + member.name + ".";
-     } else {
-         return "WAIT: No copies available right now.";
-     }
- }
-static final int LOAN_PERIOD_DAYS = 14;
-static final double FINE_PER_DAY = 5.0;
+    Book book = books.get(bookId);
+    Member member = members.get(memberId);
+
+    if (book == null || member == null) {
+        return "Invalid book or member ID.";
+    }
+    if (book.isAvailable()) {
+        book.availableCopies--;
+        book.timesBorrowed++;
+        member.borrowedBooks.put(bookId, java.time.LocalDate.now());
+        return "OK: '" + book.title + "' issued to " + member.name + ".";
+    } else {
+        waitingQueues
+            .computeIfAbsent(bookId, k -> new MyPriorityQueue<>())
+            .enqueue(memberId, member.getPriority());
+        return "WAIT: No copies available. " + member.name
+                + " added to waiting list (priority: "
+                + member.membershipType + ").";
+    }
+}
+
 public String returnBook(String bookId, String memberId) {
     Book book = books.get(bookId);
     Member member = members.get(memberId);
@@ -65,6 +77,22 @@ public String returnBook(String bookId, String memberId) {
     String msg = "OK: '" + book.title + "' returned by " + member.name + ".";
     if (fine > 0) {
         msg += " Overdue! Fine: Rs." + fine;
+    }
+    MyPriorityQueue<String> waitQ = waitingQueues.get(bookId);
+
+    if (waitQ != null && !waitQ.isEmpty()) {
+        String nextMemberId = waitQ.dequeue();
+        Member nextMember = members.get(nextMemberId);
+        if (nextMember != null) {
+            book.availableCopies--;
+            book.timesBorrowed++;
+            nextMember.borrowedBooks.put(bookId, java.time.LocalDate.now());
+            msg += "\nAuto-issued to next in queue: "
+                    + nextMember.name
+                    + " ("
+                    + nextMember.membershipType
+                    + ").";
+        }
     }
     return msg;
 }
