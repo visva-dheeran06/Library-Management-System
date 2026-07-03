@@ -30,4 +30,11 @@ public class Reports {
            }
            return sb.toString();
        }
+      public static String formatHistory(List<String> historyEntries) {
+          StringBuilder sb = new StringBuilder();
+          for (String entry : historyEntries) {
+              sb.append("- ").append(entry).append("\n");
+          }
+          return sb.toString();
+      }
 }
