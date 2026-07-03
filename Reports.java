@@ -22,4 +22,12 @@ public class Reports {
           }       
           return sb.toString();
       }
+       public static String formatLeaderboard(List<Book> topBooks) {
+           StringBuilder sb = new StringBuilder();
+           int rank = 1;
+           for (Book b : topBooks) {
+               sb.append(rank++).append(". ").append(b.title).append(" by ").append(b.author).append(" — borrowed ").append(b.timesBorrowed).append(" times\n");
+           }
+           return sb.toString();
+       }
 }
