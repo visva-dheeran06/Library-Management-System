@@ -13,28 +13,28 @@ public class Reports {
     public static List<String> getHistory(MyStack<String> historyStack) {
         return historyStack.toList();
     }
-      public static String formatWaitingList(List<String> memberIds, Map<String, Member> members) {
-          StringBuilder sb = new StringBuilder();
-          int position = 1;
-          for (String mid : memberIds) {
-              Member m = members.get(mid);
-              sb.append(position++).append(". ").append(m.name).append(" (").append(m.membershipType).append(")\n");
-          }       
-          return sb.toString();
-      }
-       public static String formatLeaderboard(List<Book> topBooks) {
-           StringBuilder sb = new StringBuilder();
-           int rank = 1;
-           for (Book b : topBooks) {
-               sb.append(rank++).append(". ").append(b.title).append(" by ").append(b.author).append(" — borrowed ").append(b.timesBorrowed).append(" times\n");
-           }
-           return sb.toString();
-       }
-      public static String formatHistory(List<String> historyEntries) {
-          StringBuilder sb = new StringBuilder();
-          for (String entry : historyEntries) {
-              sb.append("- ").append(entry).append("\n");
-          }
-          return sb.toString();
-      }
+    public static String formatWaitingList(List<String> memberIds, Map<String, Member> members) {
+        StringBuilder sb = new StringBuilder();
+        int position = 1;
+        for (String mid : memberIds) {
+            Member m = members.get(mid);
+            sb.append(position++).append(". ").append(m.name).append(" (").append(m.membershipType).append(")\n");
+        }
+        return sb.toString();
+    }
+    public static String formatLeaderboard(List<Book> topBooks) {
+        StringBuilder sb = new StringBuilder();
+        int rank = 1;
+        for (Book b : topBooks) {
+            sb.append(rank++).append(". ").append(b.title).append(" by ").append(b.author).append(" - borrowed ").append(b.timesBorrowed).append(" times\n");
+        }
+        return sb.toString();
+    }
+    public static String formatHistory(List<String> historyEntries) {
+        StringBuilder sb = new StringBuilder();
+        for (String entry : historyEntries) {
+            sb.append("- ").append(entry).append("\n");
+        }
+        return sb.toString();
+    }
 }
